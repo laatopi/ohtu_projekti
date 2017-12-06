@@ -37,7 +37,7 @@ class LukuvinkkiController extends BaseController {
             'tekija' => $params['tekija'],
             'isbn' => $params['isbn'],
             'url' => null,
-            'tyyppi' => $params['tyyppi'],
+            'tyyppi' => 'kirja',
             'kuvaus' => $params['kuvaus'],
             'julkaistu' => $params['julkaistu'],
             'sarja' => null
@@ -68,7 +68,7 @@ class LukuvinkkiController extends BaseController {
             'tekija' => $params['tekija'],
             'isbn' => null,
             'url' => $params['url'],
-            'tyyppi' => $params['tyyppi'],
+            'tyyppi' => 'podcast',
             'kuvaus' => $params['kuvaus'],
             'julkaistu' => $params['julkaistu'],
             'sarja' => $params['sarja']
@@ -99,7 +99,7 @@ class LukuvinkkiController extends BaseController {
             'tekija' => $params['tekija'],
             'isbn' => null,
             'url' => $params['url'],
-            'tyyppi' => $params['tyyppi'],
+            'tyyppi' => 'blogpost',
             'kuvaus' => $params['kuvaus'],
             'julkaistu' => $params['julkaistu'],
             'sarja' => $params['sarja']
@@ -130,7 +130,7 @@ class LukuvinkkiController extends BaseController {
             'tekija' => $params['tekija'],
             'isbn' => null,
             'url' => $params['url'],
-            'tyyppi' => $params['tyyppi'],
+            'tyyppi' => 'video',
             'kuvaus' => $params['kuvaus'],
             'julkaistu' => $params['julkaistu'],
             'sarja' => null
@@ -159,18 +159,21 @@ class LukuvinkkiController extends BaseController {
             $tags = $params['tags'];
 
             foreach ($tags as $tag) {
-                $tag = new LukuvinkkiTag(array('tag_id' => $tag, 'lukuvinkki_id' => $lukuvinkki->id));
+                $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $lukuvinkki->id, 'tag_id' => $tag));
                 $tag->save();
             }
-
-            $tagi = explode(',', $tagit);
-            foreach ($tagi as $t) {
-                $t = new Tag(array('nimi' => $t));
-                $t->save();
-                $tagid = $t->id;
-                $t = new LukuvinkkiTag(array('tag_id' => $tagid, 'lukuvinkki_id' => $lukuvinkki->id));
-                $t->save();
+            
+            if ($tagit != null) {
+                $tagi = explode(',', $tagit);
+                foreach ($tagi as $t) {
+                    $t = new Tag(array('nimi' => $t));
+                    $t->save();
+                    $tagid = $t->id;
+                    $t = new LukuvinkkiTag(array('lukuvinkki_id' => $lukuvinkki->id, 'tag_id' => $tagid));
+                    $t->save();
+                }
             }
+            
         } catch (Exception $ex) {
 
         }
@@ -189,6 +192,7 @@ class LukuvinkkiController extends BaseController {
         $tags = Tag::all();
         $vinkki = Lukuvinkki::find($id);
         $tyyppi = $vinkki->tyyppi;
+        $attributes = array();
 
         if ($tyyppi == 'kirja') {
             $attributes = array(
@@ -232,8 +236,29 @@ class LukuvinkkiController extends BaseController {
             $lukuvinkki->update($id);
             LukuvinkkiTag::destroy($id);
 
-            $vinkki_controller = new LukuvinkkiController;
-            $vinkki_controller->handeTags($params, $lukuvinkki);
+            try {
+                $tags = $params['tags'];
+                $tagit = $params['tagit'];
+
+                foreach ($tags as $tag) {
+                    $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $id, 'tag_id' => $tag));
+                    $tag->save();
+                }
+
+                if ($tagit != null) {
+                    $tagi = explode(',', $tagit);
+                    foreach ($tagi as $t) {
+                        $t = new Tag(array('nimi' => $t));
+                        $t->save();
+                        $tagid = $t->id;
+                        $t = new LukuvinkkiTag(array('lukuvinkki_id' => $id, 'tag_id' => $tagid));
+                        $t->save();
+                    }
+                }
+
+            } catch (Exception $ex) {
+
+            }
 
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
         } else {

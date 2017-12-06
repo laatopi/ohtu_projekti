@@ -20,7 +20,7 @@ class KayttajaController extends BaseController {
         $errors = $kayttaja->errors();
         if (count($errors) == 0) {
             $kayttaja->save();
-            Redirect::to('/lukuvinkki', array('message' => 'Käyttäjätunnus On Luotu Onnistuneesti!'));
+            Redirect::to('/lukuvinkki', array('message' => 'Käyttäjätunnus on luotu onnistuneesti!'));
         } else {
             View::make('kayttaja/signup.html', array('errors' => $errors));
         }

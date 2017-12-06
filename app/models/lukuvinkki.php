@@ -1,6 +1,6 @@
 <?php
 
-include("lib/base_model.php");
+//include("lib/base_model.php");
 
 class Lukuvinkki extends BaseModel {
 
@@ -8,7 +8,7 @@ class Lukuvinkki extends BaseModel {
 
     public function __construct($attributes) {
         parent::__construct($attributes);
-        $this->validators = array('validate_name', 'validate_isbn', 'validate_writer', 'validate_url', 'validate_julkaistu', 'validate_kuvaus', 'validate_tyyppi');
+        $this->validators = array('validate_name', 'validate_isbn', 'validate_writer', 'validate_url', 'validate_julkaistu', 'validate_kuvaus', 'validate_tyyppi', 'validate_sarja');
     }
 
     public static function all() {
