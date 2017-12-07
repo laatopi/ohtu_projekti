@@ -48,6 +48,7 @@
             <label>Tags</label>
             <select name="tags[]" class="form-control" multiple="">
                 {% for tag in tags %}
+                <input type="checkbox" value="{{tag.id}}" />{{tag.nimi}}<br/>
                 <option value="{{tag.id}}">{{tag.nimi}}</option>
                 {% endfor %}
             </select>
