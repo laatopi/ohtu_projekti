@@ -22,9 +22,9 @@ before_script:
   - sudo /etc/init.d/apache2 restart
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
-  - "wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar > /dev/null &"
+  - "wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar"
   - sleep 10
-  - "java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false"
+  - "java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false  > /dev/null &"
   - sleep 5
 
 
@@ -37,7 +37,6 @@ before_install:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-    - phpunit path/to/tests
     - bin/behat
 # configure notifications (email, IRC, campfire etc)
 notifications:
