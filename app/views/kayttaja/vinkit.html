@@ -15,7 +15,14 @@
             {% for vinkki in vinkit %}
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
-                <td>[status]</td>
+
+                {% if status %}
+                <td><span class="badge badge-success">luettu</span> 
+                </td>
+                {% else %}
+                <td><span class="badge badge-warning">kesken</span> 
+                </td>
+                {% endif %}               
                 <td>
                     <form method="post" action="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}/delete" style="display: inline-block;">
                         <button type="submit" class="btn btn-danger btn-sm">Poista</button>

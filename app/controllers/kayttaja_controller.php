@@ -51,10 +51,12 @@ class KayttajaController extends BaseController {
     public static function showUsersTips() {
         self::check_logged_in();
         $kayttaja = parent::get_user_logged_in();
+        $status = Status::findStatus($kayttaja->id);
+
         
         $vinkit = KayttajaLukuvinkki::findTips($kayttaja->id);
         
-        View::make('kayttaja/vinkit.html', array('vinkit' => $vinkit, 'kayttaja' => $kayttaja));
+        View::make('kayttaja/vinkit.html', array('vinkit' => $vinkit, 'kayttaja' => $kayttaja, 'status' => $status));
     }
     
     public static function addTip($id) {
@@ -72,15 +74,49 @@ class KayttajaController extends BaseController {
         Redirect::to('/user', array('error' => 'Lukuvinkki on jo lisätty käyttäjälle!'));
     }
 
-    public static function removeTip($id) {
+    public static function removeTip($lukuvinkki_id) {
         $kayttaja = parent::get_user_logged_in();
         $vinkki = new KayttajaLukuvinkki(array(
             'kayttaja_id' => $kayttaja->id,
-            'lukuvinkki_id' => $id
+            'lukuvinkki_id' => $lukuvinkki_id
         ));
-        $vinkki->destroy($id, $kayttaja->id);
+        $vinkki->destroy($lukuvinkki_id, $kayttaja->id);
 
         Redirect::to('/user', array('message' => 'Lukuvinkki on poistettu'));
+    }
+
+    public static function flipStatus($lukuvinkki_id) {
+        $kayttaja = parent::get_user_logged_in();
+        $status = Status::find($kayttaja->id,$lukuvinkki_id);
+        if($status==NULL) {
+            self::addStatus($lukuvinkki_id);
+        } else {
+            self::removeStatus($lukuvinkki_id);
+        }
+    }
+
+    public static function addStatus($lukuvinkki_id) {
+        $kayttaja = parent::get_user_logged_in();
+        $status = new Status(array(
+            'kayttaja_id' => $kayttaja->id,
+            'lukuvinkki_id' => $lukuvinkki_id,
+            'status' => 1
+        ));
+        $status->save($lukuvinkki_id, $kayttaja->id);
+
+        Redirect::to('/lukuvinkki/'.$lukuvinkki_id, array('message' => 'Status on muutettu käyttäjälle: luettu'));
+    }
+
+    public static function removeStatus($lukuvinkki_id) {
+        $kayttaja = parent::get_user_logged_in();
+        $status = new Status(array(
+            'kayttaja_id' => $kayttaja->id,
+            'lukuvinkki_id' => $lukuvinkki_id,
+            'status' => 0
+        ));
+        $status->destroy($kayttaja->id, $lukuvinkki_id);
+
+        Redirect::to('/lukuvinkki/'.$lukuvinkki_id, array('message' => 'Status on muutettu käyttäjälle: ei luettu'));
     }
 
 }
