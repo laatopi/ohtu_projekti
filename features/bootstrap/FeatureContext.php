@@ -1,5 +1,6 @@
 <?php
 
+$myTest;
 use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
@@ -21,18 +22,17 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      */
     public function __construct()
     {
-
+      $myTest = new WebTest();
+      $myTest->setUp();
     }
 
     /**
       * @Given /"([^"]+)" is pressed/
       */
     public function IsPressed($key)
-    {
-        $myTest = new WebTest();
-        $myTest->setUp();           // Your setup will always be called prior the test.
-        $myTest->testSignUp();
-        $myTest->tearDown();
+    {           // Your setup will always be called prior the test.
+      $myTest->testSignUp();
+      $myTest->tearDown();
     }
 
     /**
