@@ -2,7 +2,7 @@
 
 class KayttajaLukuvinkki extends BaseModel{
     
-    public $kayttaja_id, $lukuvinkki_id, $nimi, $tyyppi;
+    public $kayttaja_id, $lukuvinkki_id, $nimi, $tyyppi, $status;
     
     public function __construct($attributes) {
         parent::__construct($attributes);

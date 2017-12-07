@@ -51,12 +51,18 @@ class KayttajaController extends BaseController {
     public static function showUsersTips() {
         self::check_logged_in();
         $kayttaja = parent::get_user_logged_in();
-        $status = Status::findStatus($kayttaja->id);
+        //$status = Status::findStatus($kayttaja->id);
 
-        
         $vinkit = KayttajaLukuvinkki::findTips($kayttaja->id);
         
-        View::make('kayttaja/vinkit.html', array('vinkit' => $vinkit, 'kayttaja' => $kayttaja, 'status' => $status));
+        foreach ($vinkit as $vinkki) {
+            $kayttajaid = $kayttaja->id;
+            $lukuvinkkid = $vinkki->lukuvinkki_id;
+            $staattus = Status::findStatus($kayttajaid, $lukuvinkkid);
+            $vinkki->status = $staattus;
+        }
+        
+        View::make('kayttaja/vinkit.html', array('vinkit' => $vinkit, 'kayttaja' => $kayttaja));
     }
     
     public static function addTip($id) {

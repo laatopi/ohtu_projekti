@@ -16,7 +16,7 @@
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
 
-                {% if status %}
+                {% if vinkki.status %}
                 <td><span class="badge badge-success">luettu</span> 
                 </td>
                 {% else %}

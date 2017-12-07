@@ -33,21 +33,21 @@ class Status extends BaseModel{
         $query->fetch();
 
     }
-    #ei toimi
-    public static function findStatus($kayttaja_id) {
-        $query = DB::connection()->prepare('SELECT * FROM Status WHERE Status.kayttaja_id = :kayttaja_id');
-        $query->execute(array('kayttaja_id' => $kayttaja_id));
-        $rows = $query->fetchAll();
+    
+    public static function findStatus($kayttaja_id, $lukuvinkki_id) {
+        $query = DB::connection()->prepare('SELECT * FROM Status WHERE Status.kayttaja_id = :kayttaja_id AND Status.lukuvinkki_id = :lukuvinkki_id');
+        $query->execute(array('kayttaja_id' => $kayttaja_id, 'lukuvinkki_id' => $lukuvinkki_id));
+        $row = $query->fetch();
         $status = array();
-        
-        foreach ($rows as $row) {
-            $status[] = new Status(array(
-                'kayttaja_id' => $row['kayttaja_id'],
-                'lukuvinkki_id' => $row['lukuvinkki_id'],
-                'status' => $row['status']
-            ));
-        }
-        return $status;
+            if($row){
+                $status = new Status(array(
+                    'kayttaja_id' => $row['kayttaja_id'],
+                    'lukuvinkki_id' => $row['lukuvinkki_id'],
+                    'status' => $row['status']
+                ));
+                return $status;
+            }
+        return null;
     }
     
     //Palauttaa statuksen.
