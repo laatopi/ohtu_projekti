@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Muokkaa kirjaa {{attributes.nimi}}</h1>
+<h1>Muokkaa lukuvinkkiä {{attributes.otsikko}}</h1>
 <div class="show">
     <form method="post" action="{{base_path}}/lukuvinkki/{{attributes.id}}/edit" enctype="multipart/form-data">
         <div class="form-group">
