@@ -30,8 +30,16 @@ class LukuvinkkiController extends BaseController {
     public static function edit($id) {
         $lukuvinkki = Lukuvinkki::find($id);
         $tags = Tag::all();
+        $nykyisetTagit = LukuvinkkiTag::findTags($id);
+         #if(isset($_POST['submit'])){
+         #   if(!empty($_POST['tags[]'])){
+// Loop to store and display values of individual checked checkbox.
+         #      foreach($_POST['check_list'] as $tag){
+         #       }
+         #   }
+         #}
         
-        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags));
+        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags, 'nykyisetTagit' => $nykyisetTagit));
     }
 
     public static function storeKirja() {
@@ -192,6 +200,8 @@ class LukuvinkkiController extends BaseController {
         $tyyppi = $vinkki->tyyppi;
         $attributes = array();
 
+        $nykyisetTagit = LukuvinkkiTag::findTags($id);
+
         if ($tyyppi == 'kirja') {
             $attributes = array(
                 'otsikko' => $params['otsikko'],
@@ -235,7 +245,7 @@ class LukuvinkkiController extends BaseController {
             LukuvinkkiTag::destroy($id);
 
             try {
-                $tags = $params['tags'];
+                $tags = $params['tags[]'];
                 $tagit = $params['tagit'];
 
                 foreach ($tags as $tag) {
@@ -260,7 +270,7 @@ class LukuvinkkiController extends BaseController {
 
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
         } else {
-            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
+            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags, 'nykyisetTagit' => $nykyisetTagit));
         }
     }
 

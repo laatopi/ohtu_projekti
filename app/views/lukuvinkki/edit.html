@@ -11,7 +11,7 @@
         {% if attributes.sarja %}
         <div class="form-group">
             <label>Sarja</label>
-            <input type="text" name="kuvaus" class="form-control" value="{{attributes.sarja}}">
+            <input type="text" name="sarja" class="form-control" value="{{attributes.sarja}}">
         </div>
         {% endif %}
 
@@ -36,7 +36,7 @@
         <div class="form-group">
             <label>Julkaistu</label>
             <input type="text" name="julkaistu" class="form-control" value="{{attributes.julkaistu}}" 
-                   placeholder="vvvv tai pp.kk.vvvv">
+            placeholder="vvvv tai pp.kk.vvvv">
         </div>
 
         <div class="form-group">
@@ -48,8 +48,15 @@
             <label>Tags</label>
             <select name="tags[]" class="form-control" multiple="">
                 {% for tag in tags %}
-                <input type="checkbox" value="{{tag.id}}" />{{tag.nimi}}<br/>
+                {% for nykyinen in nykyisetTagit%}
+                {% if tag.id == nykyinen.tag%}
+                <input type="checkbox" value="{{tag.id}}" checked/>{{tag.nimi}}<br/>
                 <option value="{{tag.id}}">{{tag.nimi}}</option>
+                {% else %}
+                 <input type="checkbox" value="{{tag.id}}"/>{{tag.nimi}}<br/>
+                <option value="{{tag.id}}">{{tag.nimi}}</option>
+                {% endif %}
+                {% endfor %}
                 {% endfor %}
             </select>
         </div>
