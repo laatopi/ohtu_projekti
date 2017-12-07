@@ -22,8 +22,8 @@ before_script:
   - sudo /etc/init.d/apache2 restart
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
-  - "wget http://selenium.googlecode.com/files/selenium-server-standalone-2.31.0.jar"
-  - "java -jar selenium-server-standalone-2.31.0.jar > /dev/null &"
+  - "wget https://goo.gl/hvDPsK"
+  - "java -jar selenium-server-standalone-3.8.1.jar > /dev/null &"
   - sleep 5
 
 
