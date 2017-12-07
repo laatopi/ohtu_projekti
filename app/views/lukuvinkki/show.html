@@ -6,32 +6,53 @@
     <ul>
         <li><strong>Otsikko:</strong> {{lukuvinkki.otsikko}}</li>
         <br>
+        {% if lukuvinkki.sarja %}
+        {% if lukuvinkki.tyyppi == 'blogpost' %}
+        <li><strong>Blogin nimi:</strong> {{lukuvinkki.sarja}}</li>
+        <br>
+        {% endif %}
+        {% if lukuvinkki.tyyppi == 'podcast' %}
+        <li><strong>Sarja:</strong> {{lukuvinkki.sarja}}</li>
+        <br>
+        {% endif %}
+        {% endif %}
+        
         <li><strong>Tekijä:</strong> {{lukuvinkki.tekija}}</li>
         <br>
+        
         {% if lukuvinkki.isbn %}
         <li><strong>ISBN:</strong> {{lukuvinkki.isbn}}</li>
         <br>
         {% endif %}
+        
         {% if lukuvinkki.url %}
         <li><strong>URL:</strong> {{lukuvinkki.url}}</li>
         <br>
         {% endif %}
+        
         <li><strong>Julkaistu:</strong> {{lukuvinkki.julkaistu}}</li>
         <br>
+        
         {% if user_logged_in %}
-        {% if status.status %}
-        <li><strong>Luettu:</strong> <span class="badge badge-success">suoritettu</span></li>
+        {% if status %}
+        <li><strong>Luettu:</strong> <span class="badge badge-success">suoritettu</span> <form method="post" action="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/lue" style="display: inline-block;">
+            <button type="submit" class="btn btn-default">Muuta status</button>
+        </form></li>
         {% else %}
-        <li><strong>Luettu:</strong> <span class="badge badge-warning">kesken</span></li>
+        <li><strong>Luettu:</strong> <span class="badge badge-warning">kesken</span> <form method="post" action="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/lue" style="display: inline-block;">
+            <button type="submit" class="btn btn-default">Muuta status</button>
+        </form></li>
         {% endif %}
         <br>
         {% endif %}
+        
         <li><strong>Tagit:</strong> 
             {% for tag in tags %}
             <span class="badge">{{tag.tag_nimi}}</span>
             {% endfor %}
         </li>
         <br>
+        
         <li><strong>Kuvaus:</strong> {{lukuvinkki.kuvaus}}</li>
         <br>
     </ul>

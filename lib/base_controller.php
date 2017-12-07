@@ -22,4 +22,10 @@ class BaseController{
     }
   }
 
+  public static function check_logged_in2(){
+    if(!isset($_SESSION['kayttaja'])){
+      //Redirect::to('/login', array('message' => 'Kirjaudu ensin sisään!'));
+    }
+  }
+
 }

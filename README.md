@@ -14,6 +14,7 @@ Tervetuloa Ketterien Gepardien Ohjelmistotuotantoprojektin github-sivuille!
 
 * [1. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=0)
 * [2. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=355548794)
+* [3. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=1011731108)
 
 ### Gepardien Definition of Done
 Story on toteutettu DoDn mukaisesti, kun...

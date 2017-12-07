@@ -58,8 +58,6 @@ class BaseModel{
         return $errors;
     }
     
- 
-    
     public function validate_url() {
         $errors = array();
        
@@ -90,10 +88,35 @@ class BaseModel{
         
         if ($this->tyyppi == 'kirja') {
             if(strlen($this->julkaistu) != 4){
-                $errors[] = '"Julkaistu" pitää olla vuosiluku.';
+                $errors[] = 'Julkaisu vuosiluku pitää olla vuosiluku.';
             }
             if(!ctype_digit($this->julkaistu) ){
-                $errors[] = '"Julkaistu" pitäisi olla pelkkiä numeroita';
+                $errors[] = 'Julkaisu vuosiluku pitäisi olla pelkkiä numeroita';
+            }
+        } else {
+            if (!preg_match("/^(0[1-9]|[1-2][0-9]|3[0-1]).(0[1-9]|1[0-2]).[0-9]{4}$/", $this->julkaistu)) {
+                $errors[] = 'Julkaisu päivämäärä on väärää muotoa.';
+            }
+        }
+        return $errors;
+    }
+    
+    public function validate_sarja() {
+        $errors = array();
+        if ($this->tyyppi == 'podcast' | $this->tyyppi == 'blogpost') {
+            if ($this->tyyppi == 'podcast') {
+                $sarja_muuttuja = 'Sarja';
+            } else if ($this->tyyppi == 'blogpost') {
+                $sarja_muuttuja = 'Blogin nimi';
+            }
+            if($this->sarja == '' || $this->sarja == null){
+                $errors[] = $sarja_muuttuja . ' ei voi olla tyhjä.';
+            }
+            if(strlen($this->sarja) < 3){
+                $errors[] = $sarja_muuttuja . ' pitää olla vähintään 3 merkkiä pitkä.';
+            }
+            if(strlen($this->sarja) > 50){
+                $errors[] = $sarja_muuttuja . ' saa olla enintään 50 merkkiä.';
             }
         }
         

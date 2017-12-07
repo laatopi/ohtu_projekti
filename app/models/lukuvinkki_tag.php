@@ -14,7 +14,6 @@ class LukuvinkkiTag extends BaseModel{
             'lukuvinkki_id' => $this->lukuvinkki_id,
             'tag_id' => $this->tag_id
         ));
-        $row = $query->fetch();
     }
     
     public static function findTags($id) {
@@ -34,8 +33,8 @@ class LukuvinkkiTag extends BaseModel{
     }
     
     public static function destroy($id){
-        $query = DB::connection()->prepare('DELETE FROM LukuvinkkiTag WHERE lukuvinkki_id = :id');
-        $query->execute(array('id' => $id));
+        $query = DB::connection()->prepare('DELETE FROM LukuvinkkiTag WHERE lukuvinkki_id = :lukuvinkki_id');
+        $query->execute(array('lukuvinkki_id' => $id));
     }
     
 }
