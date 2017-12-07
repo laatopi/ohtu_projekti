@@ -299,10 +299,6 @@ class NotWireable
     {
     }
 
-    public function setNotAutowireableBecauseOfATypo(lesTilleuls $sam)
-    {
-    }
-
     public function setBar()
     {
     }
