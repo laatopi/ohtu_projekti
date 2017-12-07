@@ -22,7 +22,7 @@ before_script:
   - sudo /etc/init.d/apache2 restart
   - "sh -e /etc/init.d/xvfb start"
   - "export DISPLAY=:99.0"
-  - "wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar"
+  - "wget http://selenium-release.storage.googleapis.com/3.8/selenium-server-standalone-3.8.1.jar > /dev/null &"
   - sleep 10
   - "java -jar selenium-server-standalone-3.8.1.jar -enablePassThrough false"
   - sleep 5
