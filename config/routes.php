@@ -43,6 +43,10 @@ $routes->post('/lukuvinkki/:id/edit', function($id) {
     LukuvinkkiController::update($id);
 });
 
+$routes->post('/lukuvinkki/:id/lue', function($id) {
+    KayttajaController::flipStatus($id);
+});
+
 $routes->get('/lukuvinkki/:id/edit', function($id) {
     LukuvinkkiController::edit($id);
 });

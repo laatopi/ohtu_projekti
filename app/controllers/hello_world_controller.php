@@ -12,7 +12,7 @@ class HelloWorldController extends BaseController{
     $tila = new Status(array(
       'kayttaja_id' =>'1',
       'lukuvinkki_id' => '1',
-      'status' => 'true'
+      'status' => 0
     ));
 
     $kayttaja = new Kayttaja(array(
@@ -32,9 +32,10 @@ class HelloWorldController extends BaseController{
 
 
     $status = Status::find(1,1);
+    Kint::dump(Status::all());
     Kint::dump($kayttaja);
     Kint::dump($teos);
-    Kint::dump($tila.true);
+    Kint::dump($tila);
     echo 'Hello World!';
   }
 }

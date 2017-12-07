@@ -14,11 +14,17 @@ class LukuvinkkiController extends BaseController {
     public static function show($id) {
         $lukuvinkki = Lukuvinkki::find($id);
         $tags = LukuvinkkiTag::findTags($id);
+        $kayttaja = parent::get_user_logged_in();
+        if(!$kayttaja==NULL) {
+            $status = Status::find($kayttaja->id,$id);
+        } else {
+            $status ="";
+        }
 
         if ($tags == NULL) {
             $tags = "";
         }
-        View::make('lukuvinkki/show.html', array('lukuvinkki' => $lukuvinkki, 'tags' => $tags));
+        View::make('lukuvinkki/show.html', array('lukuvinkki' => $lukuvinkki, 'tags' => $tags, 'status' => $status));
     }
 
     public static function edit($id) {
@@ -177,14 +183,6 @@ class LukuvinkkiController extends BaseController {
         } catch (Exception $ex) {
 
         }
-    }
-
-    public static function onkoLuettu($lukuvinkki_id) {
-        $query = DB::connection()->prepare('SELECT COUNT ( DISTINCT id) FROM Status INNER JOIN Status ON Status.kayttaja_id = :kayttaja_id AND Status.lukuvinkki_id = Status.id');
-        $query->execute(array('lukuvinkki_id' => $lukuvinkki_id));
-        $status = $query->fetch();
-
-        return $status;
     }
 
     public static function update($id) {

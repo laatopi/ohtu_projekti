@@ -36,5 +36,5 @@ CREATE TABLE LukuvinkkiTag(
 CREATE TABLE Status(
     kayttaja_id INTEGER REFERENCES Kayttaja(id),
     lukuvinkki_id INTEGER REFERENCES Lukuvinkki(id),
-    status boolean NOT NULL
+    status INTEGER NOT NULL
 );
