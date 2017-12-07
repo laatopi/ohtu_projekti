@@ -37,7 +37,8 @@ before_install:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-    - bin/behat
+    - ls
+    - vendor/bin/behat
 # configure notifications (email, IRC, campfire etc)
 notifications:
   irc: "irc.freenode.org#yourfavouriteroomfortravis"
