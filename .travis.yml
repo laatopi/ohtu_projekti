@@ -27,6 +27,7 @@ before_script:
   - sleep 10
   - "java -jar selenium-server-standalone-3.7.1.jar -enablePassThrough false  > /dev/null &"
   - sleep 5
+  - "wget http://chromedriver.googlecode.com/files/chromedriver_linux32_23.0.1240.0.zip && unzip chromedriver_linux32_23.0.1240.0.zip && sudo mv chromedriver /usr/bin"
 
 
 addons:
