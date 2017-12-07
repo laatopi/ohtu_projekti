@@ -83,4 +83,32 @@ class KayttajaController extends BaseController {
         Redirect::to('/user', array('message' => 'Lukuvinkki on poistettu'));
     }
 
+    public static function addStatus($id) {
+        $kayttaja = parent::get_user_logged_in();
+        $status = new Status(array(
+            'kayttaja_id' => $kayttaja->id,
+            'lukuvinkki_id' => $id,
+            'status' => true
+        ));
+        if (!Status::find($id, $kayttaja->id)) {
+            $status->save($id, $kayttaja->id);
+
+
+            Redirect::to('/user', array('message' => 'Status on muutettu käyttäjälle: luettu'));
+        }
+        Redirect::to('/user', array('error' => 'Status on jo lisätty käyttäjälle!'));
+    }
+
+    public static function removeStatus($id) {
+        $kayttaja = parent::get_user_logged_in();
+        $status = new Status(array(
+            'kayttaja_id' => $kayttaja->id,
+            'lukuvinkki_id' => $id,
+            'status' => false
+        ));
+        $status->destroy($id, $kayttaja->id);
+
+        Redirect::to('/user', array('message' => 'Status on muutettu: ei luettu'));
+    }
+
 }

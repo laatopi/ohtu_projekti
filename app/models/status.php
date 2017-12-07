@@ -41,6 +41,11 @@ class Status extends BaseModel{
         $query = DB::connection()->prepare('UPDATE Status SET kayttaja_id = :kayttaja_id, lukuvinkki_id = :lukuvinkki_id, status = :status WHERE kayttaja_id = :kayttaja_id AND lukuvinkki_id = :lukuvinkki_id');
         $query->execute(array('lukuvinkki_id' => $id, 'kayttaja_id' => $kayttaja_id, 'status' => $this->status)); 
     }
+
+        public static function destroy($$id, $kayttaja_id){
+        $query = DB::connection()->prepare('DELETE FROM Status.* FROM Status WHERE Status.kayttaja_id = :kayttaja_id AND Status.lukuvinkki_id = :lukuvinkki_id LIMIT 1');
+        $query->execute(array('lukuvinkki_id' => $id, 'kayttaja_id' => $kayttaja_id));
+    }
     
     
 }

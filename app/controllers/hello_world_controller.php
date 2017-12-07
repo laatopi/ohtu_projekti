@@ -32,7 +32,9 @@ class HelloWorldController extends BaseController{
 
 
     $status = Status::find(1,1);
-    Kint::dump($status);
+    Kint::dump($kayttaja);
+    Kint::dump($teos);
+    Kint::dump($tila.true);
     echo 'Hello World!';
   }
 }
