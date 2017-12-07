@@ -47,7 +47,7 @@
         <div class="form-group">
             <label>Tags</label>
             {% for tag in tags %}
-            <input type="checkbox" name="tags[]" value="{{tag.id}}" <?php if(isset($_POST['tags[]'])) echo "checked='checked'"; ?>{{tag.nimi}}
+            <input type="checkbox" name="tags[]" value="{{tag.id}}">{{tag.nimi}}
             {% endfor %}
             
         </div>
