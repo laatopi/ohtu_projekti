@@ -1,4 +1,3 @@
-
 <?php
 
 use Behat\Behat\Context\Context;
@@ -89,3 +88,4 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
             $myTest->correctParamsKirja();
           }
 }
+
