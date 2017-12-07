@@ -193,8 +193,6 @@ class LukuvinkkiController extends BaseController {
         $tyyppi = $vinkki->tyyppi;
         $attributes = array();
 
-        $nykyisetTagit = LukuvinkkiTag::findTags($id);
-
         if ($tyyppi == 'kirja') {
             $attributes = array(
                 'otsikko' => $params['otsikko'],
@@ -260,10 +258,9 @@ class LukuvinkkiController extends BaseController {
             } catch (Exception $ex) {
 
             }
-
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
         } else {
-            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags, 'nykyisetTagit' => $nykyisetTagit));
+            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
         }
     }
 
@@ -278,17 +275,17 @@ class LukuvinkkiController extends BaseController {
         $tags = Tag::all();
         View::make('lukuvinkki/kirja.html', array('tags' => $tags));
     }
-    
+
     public static function createPodcast() {
         $tags = Tag::all();
         View::make('lukuvinkki/podcast.html', array('tags' => $tags));
     }
-    
+
     public static function createBlogpost() {
         $tags = Tag::all();
         View::make('lukuvinkki/blogpost.html', array('tags' => $tags));
     }
-    
+
     public static function createVideo() {
         $tags = Tag::all();
         View::make('lukuvinkki/video.html', array('tags' => $tags));
