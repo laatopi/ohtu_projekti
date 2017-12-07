@@ -31,13 +31,6 @@ class LukuvinkkiController extends BaseController {
         $lukuvinkki = Lukuvinkki::find($id);
         $tags = Tag::all();
         $nykyisetTagit = LukuvinkkiTag::findTags($id);
-         #if(isset($_POST['submit'])){
-         #   if(!empty($_POST['tags[]'])){
-// Loop to store and display values of individual checked checkbox.
-         #      foreach($_POST['check_list'] as $tag){
-         #       }
-         #   }
-         #}
         
         View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags, 'nykyisetTagit' => $nykyisetTagit));
     }
@@ -245,7 +238,7 @@ class LukuvinkkiController extends BaseController {
             LukuvinkkiTag::destroy($id);
 
             try {
-                $tags = $params['tags[]'];
+                $tags = $params['tags'];
                 $tagit = $params['tagit'];
 
                 foreach ($tags as $tag) {
