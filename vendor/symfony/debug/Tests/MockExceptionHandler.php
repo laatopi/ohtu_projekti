@@ -9,11 +9,16 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Filesystem\Exception;
+namespace Symfony\Component\Debug\Tests;
 
-/**
- * @author Christian Flothmann <christian.flothmann@sensiolabs.de>
- */
-class InvalidArgumentException extends \InvalidArgumentException implements ExceptionInterface
+use Symfony\Component\Debug\ExceptionHandler;
+
+class MockExceptionHandler extends ExceptionHandler
 {
+    public $e;
+
+    public function handle(\Exception $e)
+    {
+        $this->e = $e;
+    }
 }

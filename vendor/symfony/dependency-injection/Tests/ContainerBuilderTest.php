@@ -733,6 +733,7 @@ class ContainerBuilderTest extends TestCase
             PsrContainerInterface::class => true,
             ContainerInterface::class => true,
             'baz_%env(BAR)%' => true,
+            'bar_%env(BAR)%' => true,
         );
         $this->assertSame($expected, $container->getRemovedIds());
 
@@ -819,6 +820,32 @@ class ContainerBuilderTest extends TestCase
 
         $container->setResourceTracking(true);
         $container->addObjectResource(new \BarClass());
+
+        $resources = $container->getResources();
+
+        $this->assertCount(2, $resources, '2 resources were registered');
+
+        /* @var $resource \Symfony\Component\Config\Resource\FileResource */
+        $resource = end($resources);
+
+        $this->assertInstanceOf('Symfony\Component\Config\Resource\FileResource', $resource);
+        $this->assertSame(realpath(__DIR__.'/Fixtures/includes/classes.php'), realpath($resource->getResource()));
+    }
+
+    /**
+     * @group legacy
+     */
+    public function testAddClassResource()
+    {
+        $container = new ContainerBuilder();
+
+        $container->setResourceTracking(false);
+        $container->addClassResource(new \ReflectionClass('BarClass'));
+
+        $this->assertEmpty($container->getResources(), 'No resources get registered without resource tracking');
+
+        $container->setResourceTracking(true);
+        $container->addClassResource(new \ReflectionClass('BarClass'));
 
         $resources = $container->getResources();
 
@@ -1237,6 +1264,9 @@ class ContainerBuilderTest extends TestCase
         $this->assertSame($foo2, $foo2->bar->foobar->foo);
 
         $this->assertSame(array(), (array) $container->get('foobar4'));
+
+        $foo5 = $container->get('foo5');
+        $this->assertSame($foo5, $foo5->bar->foo);
     }
 
     public function provideAlmostCircular()
@@ -1256,31 +1286,41 @@ class ContainerBuilderTest extends TestCase
         $this->assertSame($childDefA, $container->registerForAutoconfiguration('AInterface'));
     }
 
-    public function testCaseSensitivity()
+    /**
+     * This test checks the trigger of a deprecation note and should not be removed in major releases.
+     *
+     * @group legacy
+     * @expectedDeprecation The "foo" service is deprecated. You should stop using it, as it will soon be removed.
+     */
+    public function testPrivateServiceTriggersDeprecation()
     {
         $container = new ContainerBuilder();
-        $container->register('foo', 'stdClass')->setPublic(true);
-        $container->register('Foo', 'stdClass')->setProperty('foo', new Reference('foo'))->setPublic(false);
-        $container->register('fOO', 'stdClass')->setProperty('Foo', new Reference('Foo'))->setPublic(true);
-
-        $this->assertSame(array('service_container', 'foo', 'Foo', 'fOO', 'Psr\Container\ContainerInterface', 'Symfony\Component\DependencyInjection\ContainerInterface'), $container->getServiceIds());
+        $container->register('foo', 'stdClass')
+            ->setPublic(false)
+            ->setDeprecated(true);
+        $container->register('bar', 'stdClass')
+            ->setPublic(true)
+            ->setProperty('foo', new Reference('foo'));
 
         $container->compile();
 
-        $this->assertNotSame($container->get('foo'), $container->get('fOO'), '->get() returns the service for the given id, case sensitively');
-        $this->assertSame($container->get('fOO')->Foo->foo, $container->get('foo'), '->get() returns the service for the given id, case sensitively');
+        $container->get('bar');
     }
 
+    /**
+     * @group legacy
+     * @expectedDeprecation Parameter names will be made case sensitive in Symfony 4.0. Using "FOO" instead of "foo" is deprecated since version 3.4.
+     */
     public function testParameterWithMixedCase()
     {
-        $container = new ContainerBuilder(new ParameterBag(array('foo' => 'bar', 'FOO' => 'BAR')));
+        $container = new ContainerBuilder(new ParameterBag(array('foo' => 'bar')));
         $container->register('foo', 'stdClass')
             ->setPublic(true)
             ->setProperty('foo', '%FOO%');
 
         $container->compile();
 
-        $this->assertSame('BAR', $container->get('foo')->foo);
+        $this->assertSame('bar', $container->get('foo')->foo);
     }
 
     public function testArgumentsHaveHigherPriorityThanBindings()
