@@ -80,7 +80,7 @@ class KayttajaController extends BaseController {
             'kayttaja_id' => $kayttaja->id,
             'lukuvinkki_id' => $lukuvinkki_id
         ));
-        $vinkki->destroy($id, $kayttaja->id);
+        $vinkki->destroy($lukuvinkki_id, $kayttaja->id);
 
         Redirect::to('/user', array('message' => 'Lukuvinkki on poistettu'));
     }
