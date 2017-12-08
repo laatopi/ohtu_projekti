@@ -30,14 +30,14 @@ class LukuvinkkiController extends BaseController {
     public static function edit($id) {
         $lukuvinkki = Lukuvinkki::find($id);
         $tags = Tag::all();
-        
+
         View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags));
     }
 
     public static function storeKirja() {
         $params = $_POST;
         $tags = Tag::all();
-        
+
         $attributes = array(
             'otsikko' => $params['otsikko'],
             'tekija' => $params['tekija'],
@@ -50,7 +50,7 @@ class LukuvinkkiController extends BaseController {
         );
 
         $lukuvinkki = new Lukuvinkki($attributes);
-        
+
         $errors = $lukuvinkki->errors();
 
         if (count($errors) == 0) {
@@ -58,7 +58,7 @@ class LukuvinkkiController extends BaseController {
 
             $vinkki_controller = new LukuvinkkiController;
             $vinkki_controller->handeTags($params, $lukuvinkki);
-            
+
             Redirect::to('/lukuvinkki/' . $lukuvinkki->id, array('message' => 'Lukuvinkki on lisätty!'));
         } else {
             View::make('lukuvinkki/kirja.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
@@ -68,7 +68,7 @@ class LukuvinkkiController extends BaseController {
     public static function storePodcast() {
         $params = $_POST;
         $tags = Tag::all();
-        
+
         $attributes = array(
             'otsikko' => $params['otsikko'],
             'tekija' => $params['tekija'],
@@ -86,20 +86,20 @@ class LukuvinkkiController extends BaseController {
 
         if (count($errors) == 0) {
             $lukuvinkki->save();
-            
+
             $vinkki_controller = new LukuvinkkiController;
             $vinkki_controller->handeTags($params, $lukuvinkki);
-            
+
             Redirect::to('/lukuvinkki/' . $lukuvinkki->id, array('message' => 'Lukuvinkki on lisätty!'));
         } else {
             View::make('lukuvinkki/podcast.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
         }
     }
-    
+
     public static function storeBlogpost() {
         $params = $_POST;
         $tags = Tag::all();
-        
+
         $attributes = array(
             'otsikko' => $params['otsikko'],
             'tekija' => $params['tekija'],
@@ -120,7 +120,7 @@ class LukuvinkkiController extends BaseController {
 
             $vinkki_controller = new LukuvinkkiController;
             $vinkki_controller->handeTags($params, $lukuvinkki);
-            
+
             Redirect::to('/lukuvinkki/' . $lukuvinkki->id, array('message' => 'Lukuvinkki on lisätty!'));
         } else {
             View::make('lukuvinkki/blogpost.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
@@ -130,7 +130,7 @@ class LukuvinkkiController extends BaseController {
     public static function storeVideo() {
         $params = $_POST;
         $tags = Tag::all();
-        
+
         $attributes = array(
             'otsikko' => $params['otsikko'],
             'tekija' => $params['tekija'],
@@ -151,16 +151,16 @@ class LukuvinkkiController extends BaseController {
 
             $vinkki_controller = new LukuvinkkiController;
             $vinkki_controller->handeTags($params, $lukuvinkki);
-            
+
             Redirect::to('/lukuvinkki/' . $lukuvinkki->id, array('message' => 'Lukuvinkki on lisätty!'));
         } else {
             View::make('lukuvinkki/video.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
         }
     }
-    
+
     public function handeTags($params, $lukuvinkki) {
         $tagit = $params['tagit'];
-        
+
         try {
             $tags = $params['tags'];
 
@@ -168,7 +168,7 @@ class LukuvinkkiController extends BaseController {
                 $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $lukuvinkki->id, 'tag_id' => $tag));
                 $tag->save();
             }
-            
+
             if ($tagit != null) {
                 $tagi = explode(',', $tagit);
                 foreach ($tagi as $t) {
@@ -179,7 +179,7 @@ class LukuvinkkiController extends BaseController {
                     $t->save();
                 }
             }
-            
+
         } catch (Exception $ex) {
 
         }
@@ -189,6 +189,7 @@ class LukuvinkkiController extends BaseController {
         $params = $_POST;
         $tags = Tag::all();
         $vinkki = Lukuvinkki::find($id);
+        Kint::dump($vinkki);
         $tyyppi = $vinkki->tyyppi;
         $attributes = array();
 
@@ -230,14 +231,21 @@ class LukuvinkkiController extends BaseController {
         $lukuvinkki = new Lukuvinkki($attributes);
         $errors = $lukuvinkki->errors();
 
+        $tags = array();
+        $tagit = array();
+
+        if (isset($params['tags'])) {
+			$tags = $params['tags'];
+		}
+        if (isset($params['tagit'])) {
+			$tagit = $params['tagit'];
+		}
+
         if (count($errors) == 0) {
             $lukuvinkki->update($id);
             LukuvinkkiTag::destroy($id);
 
-            try {
-                $tags = $params['tags'];
-                $tagit = $params['tagit'];
-
+            try {                
                 foreach ($tags as $tag) {
                     $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $id, 'tag_id' => $tag));
                     $tag->save();
@@ -255,7 +263,6 @@ class LukuvinkkiController extends BaseController {
                 }
 
             } catch (Exception $ex) {
-
             }
 
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
@@ -275,17 +282,17 @@ class LukuvinkkiController extends BaseController {
         $tags = Tag::all();
         View::make('lukuvinkki/kirja.html', array('tags' => $tags));
     }
-    
+
     public static function createPodcast() {
         $tags = Tag::all();
         View::make('lukuvinkki/podcast.html', array('tags' => $tags));
     }
-    
+
     public static function createBlogpost() {
         $tags = Tag::all();
         View::make('lukuvinkki/blogpost.html', array('tags' => $tags));
     }
-    
+
     public static function createVideo() {
         $tags = Tag::all();
         View::make('lukuvinkki/video.html', array('tags' => $tags));
