@@ -37,7 +37,7 @@ class WebTest extends PHPUnit_Framework_TestCase
     }
     public function registrationSuccessful()
     {
-      sleep(5);
+      usernameAndPasswordAreEntered($username, $password);
       $this->webDriver->findElement(WebDriverBy::id('success'));
     }
     public function kirjaIsSelected()
