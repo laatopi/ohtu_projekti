@@ -37,8 +37,6 @@ before_install:
   - composer self-update
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
-install:
-  - composer install
 
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
