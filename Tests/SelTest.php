@@ -18,10 +18,10 @@ class WebTest extends PHPUnit_Framework_TestCase
     public function buttonIsPressed($button)
     {
       $this->webDriver->get($this->url);
-      sleep(1);
+     sleep(5);
       $search = $this->webDriver->findElement(WebDriverBy::id($button));
       $search->click();
-      sleep(1);
+      sleep(5);
     }
     public function usernameAndPasswordAreEntered($username,$password)
     {
@@ -33,18 +33,18 @@ class WebTest extends PHPUnit_Framework_TestCase
       $this->webDriver->getKeyboard()->sendKeys($password);
       $search = $this->webDriver->findElement(WebDriverBy::id('submit'));
       $search->click();
-      sleep(1);
+      sleep(5);
     }
     public function registrationSuccessful()
     {
-      sleep(1);
+      sleep(5);
       $this->webDriver->findElement(WebDriverBy::id('success'));
     }
     public function kirjaIsSelected()
     {
       $search = $this->webDriver->findElement(WebDriverBy::id('kirja'));
       $search->click();
-      sleep(1);
+      sleep(5);
     }
     public function correctParamsKirja()
     {
@@ -65,11 +65,11 @@ class WebTest extends PHPUnit_Framework_TestCase
       $this->webDriver->getKeyboard()->sendKeys("Further advances took place in medieval Islamic mathematics. While earlier Greek proofs were largely geometric demonstrations, the development of arithmetic and algebra by Islamic mathematicians allowed more general proofs that no longer depended on geometry.");
       $search = $this->webDriver->findElement(WebDriverBy::id('submit'));
       $search->click();
-      sleep(1);
+      sleep(5);
       $search = $this->webDriver->findElement(WebDriverBy::id('poista'));
       $search->click();
       $this->webDriver->switchTo()->alert()->accept();
-      sleep(1);
+      sleep(5);
     }
 }
 ?>
