@@ -14,6 +14,7 @@ env:
 # optionally set up exclutions and allowed failures in the matrix
 
 # execute any number of scripts before the test run, custom env's are available as variables
+
 before_script:
   - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS hello_world_test;" -U postgres; fi
   - if [[ "$DB" == "pgsql" ]]; then psql -c "create database hello_world_test;" -U postgres; fi
@@ -42,9 +43,7 @@ install:
 # omitting "script:" will default to phpunit
 # use the $DB env variable to determine the phpunit.xml to use
 script:
-  - whereis google-chrome-stable
-  - whereis chromedriver
-  - vendor/bin/behat
+  - vendor/behat/behat/bin/behat
 # configure notifications (email, IRC, campfire etc)
 after_success:
     - bash <(curl -s https://codecov.io/bash)
