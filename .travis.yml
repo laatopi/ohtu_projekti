@@ -43,7 +43,7 @@ before_install:
 # use the $DB env variable to determine the phpunit.xml to use
 script:
   - vendor/behat/behat/bin/behat
-  - vendor/behat/behat/bin/phpunit --coverage-clover=coverage.xml
+  - vendor/bin/phpunit --coverage-clover codeCoverage.xml
 # configure notifications (email, IRC, campfire etc)
 after_success:
     - bash <(curl -s https://codecov.io/bash)
