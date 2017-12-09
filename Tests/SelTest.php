@@ -34,10 +34,11 @@ class WebTest extends PHPUnit_Framework_TestCase
       $search = $this->webDriver->findElement(WebDriverBy::id('submit'));
       $search->click();
       sleep(5);
+      $this->webDriver->findElement(WebDriverBy::id('success'));
     }
     public function registrationSuccessful()
     {
-      usernameAndPasswordAreEntered($username, $password);
+      sleep(5);
       $this->webDriver->findElement(WebDriverBy::id('success'));
     }
     public function kirjaIsSelected()
