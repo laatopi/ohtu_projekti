@@ -1,13 +1,12 @@
+
 {% extends "base.html" %}
 {% block content %}
 <h1>Minkä tyyppisen lukuvinkin haluat lisätä?</h1>
 
 <div class="show">
-    <a href="{{base_path}}/lukuvinkki/kirja" class="btn btn-secondary btn-lg">Kirja</a>
-    <a href="{{base_path}}/lukuvinkki/podcast" class="btn btn-secondary btn-lg">Podcast</a>
-    <a href="{{base_path}}/lukuvinkki/blogpost" class="btn btn-secondary btn-lg">Blog post</a>
-    <a href="{{base_path}}/lukuvinkki/video" class="btn btn-secondary btn-lg">Video</a> 
+    <a href="{{base_path}}/lukuvinkki/kirja" class="btn btn-secondary btn-lg" id="kirja">Kirja</a>
+    <a href="{{base_path}}/lukuvinkki/podcast" class="btn btn-secondary btn-lg" id="podcast">Podcast</a>
+    <a href="{{base_path}}/lukuvinkki/blogpost" class="btn btn-secondary btn-lg" id="blogpost">Blog post</a>
+    <a href="{{base_path}}/lukuvinkki/video" class="btn btn-secondary btn-lg" id="video">Video</a>
 </div>
 {% endblock %}
-
-

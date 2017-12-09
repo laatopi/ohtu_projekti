@@ -5,8 +5,6 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 require_once 'vendor/autoload.php';
 require_once 'Tests/SelTest.php';
-
-
 /**
  * Defines application features from the specific context.
  */
@@ -21,33 +19,72 @@ class FeatureContext extends PHPUnit_Framework_TestCase implements Context
      */
     public function __construct()
     {
-
+      global $myTest;
+      $myTest = new WebTest();
+      $myTest->setUp();
     }
 
     /**
-      * @Given /"([^"]+)" is pressed/
+      * @Given /signup is pressed/
       */
-    public function IsPressed($key)
+    public function signUpIsPressed()
     {
-        $myTest = new WebTest();
-        $myTest->setUp();           // Your setup will always be called prior the test.
-        $myTest->testSignUp();
-        $myTest->tearDown();
+      global $myTest;
+      $myTest->buttonIsPressed('signup');
     }
+
+    /**
+      * @Given /kirjaudu sisaan is pressed/
+      */
+      public function kirjauduSisaanIsPressed()
+      {
+        global $myTest;
+        $myTest->buttonIsPressed('login');
+      }
 
     /**
       * @When /username "([^"]+)" and password "([^"]+)" are entered/
       */
       public function usernameAndPassword($username, $password)
       {
-
+        global $myTest;
+        $myTest->usernameAndPasswordAreEntered($username,$password);
       }
 
       /**
-        * @Then /system will respond with "([^"]+)"/
+        * @Then /system will respond with success/
         */
-      public function systemWillRespond($response)
+      public function systemWillRespond()
       {
-
+        global $myTest;
+        $myTest->registrationSuccessful();
+        $myTest->tearDown();
       }
+
+      /**
+        * @Given /lisaa lukuvinkki is pressed/
+        */
+      public function lisaaLukuvinkkiIsPressed()
+      {
+        global $myTest;
+        $myTest->buttonIsPressed('lisaa');
+      }
+
+      /**
+        * @When /kirja is selected/
+        */
+        public function kirjaIsSelected()
+        {
+          global $myTest;
+          $myTest->kirjaIsSelected();
+        }
+
+        /**
+          * @When /correct params submitted/
+          */
+          public function correctParamsSubmitted()
+          {
+            global $myTest;
+            $myTest->correctParamsKirja();
+          }
 }
