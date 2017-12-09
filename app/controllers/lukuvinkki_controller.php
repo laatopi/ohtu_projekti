@@ -235,11 +235,11 @@ class LukuvinkkiController extends BaseController {
         $tagit = array();
 
         if (isset($params['tags'])) {
-			$tags = $params['tags'];
-		}
+            $tags = $params['tags'];
+        }
         if (isset($params['tagit'])) {
-			$tagit = $params['tagit'];
-		}
+            $tagit = $params['tagit'];
+        }
 
         if (count($errors) == 0) {
             $lukuvinkki->update($id);

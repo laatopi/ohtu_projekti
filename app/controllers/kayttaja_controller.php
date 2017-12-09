@@ -51,7 +51,6 @@ class KayttajaController extends BaseController {
     public static function showUsersTips() {
         self::check_logged_in();
         $kayttaja = parent::get_user_logged_in();
-        //$status = Status::findStatus($kayttaja->id);
 
         $vinkit = KayttajaLukuvinkki::findTips($kayttaja->id);
         
