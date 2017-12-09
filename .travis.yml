@@ -26,13 +26,12 @@ before_script:
   - sleep 10
   - "java -jar selenium-server-standalone-3.7.1.jar -enablePassThrough false  > /dev/null &"
   - sleep 5
-  - "wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux32.zip && unzip chromedriver_linux32.zip && sudo mv chromedriver /usr/bin"
+  - "wget https://chromedriver.storage.googleapis.com/2.33/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && sudo mv chromedriver /usr/bin"
 
 
 addons:
   chrome: stable
 before_install:
-  - # start your web application and listen on `localhost`
   - google-chrome-stable --headless --disable-gpu --remote-debugging-port=9222 http://localhost &
 
 # omitting "script:" will default to phpunit
