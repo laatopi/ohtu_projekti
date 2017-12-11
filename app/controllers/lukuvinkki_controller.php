@@ -29,9 +29,17 @@ class LukuvinkkiController extends BaseController {
 
     public static function edit($id) {
         $lukuvinkki = Lukuvinkki::find($id);
-        $tags = Tag::all();
-
-        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags));
+        $apu = Tag::all();
+        $tagit = LukuvinkkiTag::findTags($id);
+        $tags = array();
+        
+        foreach ($apu as $t) {
+            if (!LukuvinkkiTag::findTag($id, $t->id)) {
+                array_push($tags, $t);
+            }
+        }
+        
+        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags, 'tagit' => $tagit));
     }
 
     public static function storeKirja() {
@@ -240,12 +248,14 @@ class LukuvinkkiController extends BaseController {
         if (isset($params['tagit'])) {
             $tagit = $params['tagit'];
         }
+        
+        
 
         if (count($errors) == 0) {
             $lukuvinkki->update($id);
             LukuvinkkiTag::destroy($id);
 
-            try {                
+            try {              
                 foreach ($tags as $tag) {
                     $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $id, 'tag_id' => $tag));
                     $tag->save();
