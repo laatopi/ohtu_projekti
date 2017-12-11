@@ -2,23 +2,23 @@
 {% block content %}
 <h1>Käyttäjän {{kayttaja.tunnus}} lukuvinkit</h1>
 <div class="show">
+    {% for vinkki in vinkit %}
+    {% if vinkki.tyyppi == 'kirja' %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="60%">Kirja</th>
+                <th width="70%">Kirja</th>
                 <th width="15%">Status</th>
-                <th width="25%">Poista</th>
+                <th width="15%">Poista</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for vinkki in vinkit %}
-            {% if vinkki.tyyppi == 'kirja' %}
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
 
                 {% if vinkki.status %}
-                <td><span class="badge badge-success">luettu</span> 
+                <td><span class="badge badge-success">suoritettu</span> 
                 </td>
                 {% else %}
                 <td><span class="badge badge-warning">kesken</span> 
@@ -32,27 +32,26 @@
                     </form>
                 </td>
             </tr>
-            {% endif %}
-            {% endfor %}
         </tbody>
     </table>
+    {% endif %}
+    {% if vinkki.tyyppi == 'podcast' %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="60%">Podcast</th>
+                <th width="70%">Podcast</th>
                 <th width="15%">Status</th>
-                <th width="25%">Poista</th>
+                <th width="15%">Poista</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for vinkki in vinkit %}
-            {% if vinkki.tyyppi == 'podcast' %}
+            
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
 
                 {% if vinkki.status %}
-                <td><span class="badge badge-success">luettu</span> 
+                <td><span class="badge badge-success">suoritettu</span> 
                 </td>
                 {% else %}
                 <td><span class="badge badge-warning">kesken</span> 
@@ -64,27 +63,26 @@
                     </form>
                 </td>
             </tr>
-            {% endif %}
-            {% endfor %}
+            
         </tbody>
     </table>
+    {% endif %}
+    {% if vinkki.tyyppi == 'blogpost' %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="60%">Blogpost</th>
+                <th width="70%">Blogpost</th>
                 <th width="15%">Status</th>
-                <th width="25%">Poista</th>
+                <th width="15%">Poista</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for vinkki in vinkit %}
-            {% if vinkki.tyyppi == 'blogpost' %}
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
 
                 {% if vinkki.status %}
-                <td><span class="badge badge-success">luettu</span> 
+                <td><span class="badge badge-success">suoritettu</span> 
                 </td>
                 {% else %}
                 <td><span class="badge badge-warning">kesken</span> 
@@ -96,27 +94,25 @@
                     </form>
                 </td>
             </tr>
-            {% endif %}
-            {% endfor %}
         </tbody>
     </table>
+    {% endif %}
+    {% if vinkki.tyyppi == 'video' %}
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th width="60%">Video</th>
+                <th width="70%">Video</th>
                 <th width="15%">Status</th>
-                <th width="25%">Poista</th>
+                <th width="15%">Poista</th>
             </tr>
         </thead>
 
         <tbody>
-            {% for vinkki in vinkit %}
-            {% if vinkki.tyyppi == 'video' %}
             <tr>
                 <td><a href="{{base_path}}/lukuvinkki/{{vinkki.lukuvinkki_id}}">{{vinkki.nimi}}</a>  <span class="badge badge-pill badge-info">{{vinkki.tyyppi}}</span></td>
 
                 {% if vinkki.status %}
-                <td><span class="badge badge-success">luettu</span> 
+                <td><span class="badge badge-success">suoritettu</span> 
                 </td>
                 {% else %}
                 <td><span class="badge badge-warning">kesken</span> 
@@ -128,9 +124,9 @@
                     </form>
                 </td>
             </tr>
-            {% endif %}
-            {% endfor %}
         </tbody>
     </table>
+    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}
