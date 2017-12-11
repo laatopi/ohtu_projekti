@@ -40,7 +40,7 @@
         </form></li>
         {% else %}
         <li><strong>Luettu:</strong> <span class="badge badge-warning">kesken</span> <form method="post" action="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/lue" style="display: inline-block;">
-            <button type="submit" class="btn btn-default">Muuta status</button>
+            <button id="change" type="submit" class="btn btn-default">Muuta status</button>
         </form></li>
         {% endif %}
         <br>
@@ -64,7 +64,7 @@
     {% if user_logged_in %}
     <br>
     <form method="post" action="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/add" style="display: inline-block;">
-        <button type="submit" class="btn btn-default">Lisää vinkkeli</button>
+        <button id="lisaa" type="submit" class="btn btn-default">Lisää vinkkeli</button>
     </form>
     {% endif %}
 </p>
