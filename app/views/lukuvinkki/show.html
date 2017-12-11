@@ -59,7 +59,7 @@
 </div>
 <br>
 <p>
-    <a href="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/edit" class="btn btn-primary">Muokkaa</a>
+    <a href="{{base_path}}/lukuvinkki/{{lukuvinkki.id}}/edit" id="muokkaa" class="btn btn-primary">Muokkaa</a>
     {{forms.destroy_button("#{base_path}/lukuvinkki/#{lukuvinkki.id}/destroy")}} 
     {% if user_logged_in %}
     <br>
