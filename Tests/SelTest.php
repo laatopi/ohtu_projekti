@@ -47,7 +47,7 @@ class WebTest extends PHPUnit_Framework_TestCase
 
     public function registrationSuccessful()
     {
-      sleep(4);
+      sleep(10);
       $this->webDriver->findElement(WebDriverBy::id('success'));
     }
 
