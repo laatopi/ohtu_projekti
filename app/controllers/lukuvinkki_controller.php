@@ -197,12 +197,12 @@ class LukuvinkkiController extends BaseController {
         $params = $_POST;
         $tags = Tag::all();
         $vinkki = Lukuvinkki::find($id);
-        Kint::dump($vinkki);
         $tyyppi = $vinkki->tyyppi;
         $attributes = array();
 
         if ($tyyppi == 'kirja') {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => $params['isbn'],
@@ -214,6 +214,7 @@ class LukuvinkkiController extends BaseController {
             );
         } else if ($tyyppi == 'video') {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => null,
@@ -225,6 +226,7 @@ class LukuvinkkiController extends BaseController {
             );
         } else {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => null,
@@ -249,8 +251,6 @@ class LukuvinkkiController extends BaseController {
             $tagit = $params['tagit'];
         }
         
-        
-
         if (count($errors) == 0) {
             $lukuvinkki->update($id);
             LukuvinkkiTag::destroy($id);

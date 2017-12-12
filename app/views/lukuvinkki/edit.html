@@ -3,38 +3,43 @@
 <h1>Muokkaa lukuvinkkiä {{attributes.otsikko}}</h1>
 <div class="show">
     <form method="post" action="{{base_path}}/lukuvinkki/{{attributes.id}}/edit" enctype="multipart/form-data">
+        
         <div class="form-group">
-            <label>Otsikko</label>
+            <label>Otsikko *</label>
             <input type="text" name="otsikko" id="otsikko" class="form-control" value="{{attributes.otsikko}}">
         </div>
         
         {% if attributes.sarja %}
-        <div class="form-group">
-            <label>Sarja</label>
+            <div class="form-group">
+            {% if attributes.tyyppi == 'podcast' %}
+            <label>Sarja *</label>
+            {% elseif attributes.tyyppi == 'blogpost' %}
+            <label>Blogin nimi *</label>
+            {% endif %}
             <input type="text" name="sarja" id="sarjha" class="form-control" value="{{attributes.sarja}}">
-        </div>
+            </div>
         {% endif %}
 
         <div class="form-group">
-            <label>Tekijä</label>
+            <label>Tekijä *</label>
             <input type="text" name="tekija" id="tekija" class="form-control" value="{{attributes.tekija}}">
         </div>
         
         {% if attributes.isbn %}
         <div class="form-group">
-            <label>ISBN</label>
+            <label>ISBN *</label>
             <input type="text" name="isbn" id="isbn" class="form-control" value="{{attributes.isbn}}">
         </div>
         {% endif %}
         {% if attributes.url %}
         <div class="form-group">
-            <label>URL</label>
+            <label>URL *</label>
             <input type="text" name="url" id="url" class="form-control" value="{{attributes.url}}">
         </div>
         {% endif %}
 
         <div class="form-group">
-            <label>Julkaistu</label>
+            <label>Julkaistu *</label>
             <input type="text" name="julkaistu" id="julkaistu" class="form-control" value="{{attributes.julkaistu}}" 
             placeholder="vvvv tai pp.kk.vvvv">
         </div>
@@ -47,10 +52,10 @@
         <div class="form-group">
             <label>Tags</label><br>
             {% for t in tagit %}
-            <input id="chosen" type="checkbox" name="tags[]" value="{{t.tag_id}}" checked>{{t.tag_nimi}}
+            <input id="chosen" type="checkbox" name="tags[]" value="{{t.tag_id}}" checked>{{t.tag_nimi}} 
             {% endfor %}
             {% for tag in tags %}
-            <input id="notchosen" type="checkbox" name="tags[]" value="{{tag.id}}">{{tag.nimi}}
+            <input id="notchosen" type="checkbox" name="tags[]" value="{{tag.id}}">{{tag.nimi}} 
 
             {% endfor %}
             
