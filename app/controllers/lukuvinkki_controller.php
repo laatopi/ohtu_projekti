@@ -277,7 +277,17 @@ class LukuvinkkiController extends BaseController {
 
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
         } else {
-            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
+            $apu = Tag::all();
+            $tagit = LukuvinkkiTag::findTags($id);
+            $tags = array();
+
+            foreach ($apu as $t) {
+                if (!LukuvinkkiTag::findTag($id, $t->id)) {
+                    array_push($tags, $t);
+                }
+            }
+            
+            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags, 'tagit' => $tagit));
         }
     }
 
