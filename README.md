@@ -7,6 +7,8 @@
 
 * [Linkki backlogiin](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit?usp=sharing)
 
+* [Linkki raporttiin](https://docs.google.com/document/d/e/2PACX-1vQ9NyRA4aJ86snmzskFuhfpZA4LVhkEsjuEtbhuLRyj7u17q5Olfmue-j4mkmv6o8uHrVgejsuttAAk/pub)
+
 
 ### Sprintin Backlogit
 

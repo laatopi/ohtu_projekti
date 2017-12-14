@@ -13,10 +13,11 @@
             <div class="form-group">
             {% if attributes.tyyppi == 'podcast' %}
             <label>Sarja *</label>
-            {% elseif attributes.tyyppi == 'blogpost' %}
+            {% endif %}
+            {% if attributes.tyyppi == 'blogpost' %}
             <label>Blogin nimi *</label>
             {% endif %}
-            <input type="text" name="sarja" id="sarjha" class="form-control" value="{{attributes.sarja}}">
+            <input type="text" name="sarja" id="sarja" class="form-control" value="{{attributes.sarja}}">
             </div>
         {% endif %}
 
