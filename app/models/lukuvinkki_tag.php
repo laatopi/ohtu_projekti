@@ -32,6 +32,18 @@ class LukuvinkkiTag extends BaseModel{
         return $tags;
     }
     
+    public static function findTag($lukuvinkki_id, $tag_id) {
+        $query = DB::connection()->prepare('SELECT LukuvinkkiTag.*, Tag.nimi AS tag_nimi FROM LukuvinkkiTag INNER JOIN Tag ON LukuvinkkiTag.tag_id = Tag.id WHERE LukuvinkkiTag.lukuvinkki_id = :lukuvinkki_id AND LukuvinkkiTag.tag_id = :tag_id');
+        $query->execute(array('lukuvinkki_id' => $lukuvinkki_id, 'tag_id' => $tag_id));
+        $row = $query->fetch();
+        $tag = array();
+
+        if ($row) {
+            return true;
+        }
+        return false;
+    }
+    
     public static function destroy($id){
         $query = DB::connection()->prepare('DELETE FROM LukuvinkkiTag WHERE lukuvinkki_id = :lukuvinkki_id');
         $query->execute(array('lukuvinkki_id' => $id));

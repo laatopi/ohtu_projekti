@@ -3,62 +3,72 @@
 <h1>Muokkaa lukuvinkkiä {{attributes.otsikko}}</h1>
 <div class="show">
     <form method="post" action="{{base_path}}/lukuvinkki/{{attributes.id}}/edit" enctype="multipart/form-data">
+        
         <div class="form-group">
-            <label>Otsikko</label>
-            <input type="text" name="otsikko" class="form-control" value="{{attributes.otsikko}}">
+            <label>Otsikko *</label>
+            <input type="text" name="otsikko" id="otsikko" class="form-control" value="{{attributes.otsikko}}">
         </div>
         
         {% if attributes.sarja %}
-        <div class="form-group">
-            <label>Sarja</label>
-            <input type="text" name="sarja" class="form-control" value="{{attributes.sarja}}">
-        </div>
+            <div class="form-group">
+            {% if attributes.tyyppi == 'podcast' %}
+            <label>Sarja *</label>
+            {% endif %}
+            {% if attributes.tyyppi == 'blogpost' %}
+            <label>Blogin nimi *</label>
+            {% endif %}
+            <input type="text" name="sarja" id="sarja" class="form-control" value="{{attributes.sarja}}">
+            </div>
         {% endif %}
 
         <div class="form-group">
-            <label>Tekijä</label>
-            <input type="text" name="tekija" class="form-control" value="{{attributes.tekija}}">
+            <label>Tekijä *</label>
+            <input type="text" name="tekija" id="tekija" class="form-control" value="{{attributes.tekija}}">
         </div>
         
         {% if attributes.isbn %}
         <div class="form-group">
-            <label>ISBN</label>
-            <input type="text" name="isbn" class="form-control" value="{{attributes.isbn}}">
+            <label>ISBN *</label>
+            <input type="text" name="isbn" id="isbn" class="form-control" value="{{attributes.isbn}}">
         </div>
         {% endif %}
         {% if attributes.url %}
         <div class="form-group">
-            <label>URL</label>
-            <input type="text" name="url" class="form-control" value="{{attributes.url}}">
+            <label>URL *</label>
+            <input type="text" name="url" id="url" class="form-control" value="{{attributes.url}}">
         </div>
         {% endif %}
 
         <div class="form-group">
-            <label>Julkaistu</label>
-            <input type="text" name="julkaistu" class="form-control" value="{{attributes.julkaistu}}" 
+            <label>Julkaistu *</label>
+            <input type="text" name="julkaistu" id="julkaistu" class="form-control" value="{{attributes.julkaistu}}" 
             placeholder="vvvv tai pp.kk.vvvv">
         </div>
 
         <div class="form-group">
             <label>Kuvaus</label>
-            <input type="text" name="kuvaus" class="form-control" value="{{attributes.kuvaus}}">
+            <input type="text" name="kuvaus" id="kuvaus" class="form-control" value="{{attributes.kuvaus}}">
         </div>
         
         <div class="form-group">
-            <label>Tags</label>
+            <label>Tags</label><br>
+            {% for t in tagit %}
+            <input id="chosen" type="checkbox" name="tags[]" value="{{t.tag_id}}" checked>{{t.tag_nimi}} 
+            {% endfor %}
             {% for tag in tags %}
-            <input type="checkbox" name="tags[]" value="{{tag.id}}">{{tag.nimi}}
+            <input id="notchosen" type="checkbox" name="tags[]" value="{{tag.id}}">{{tag.nimi}} 
+
             {% endfor %}
             
         </div>
 
         <div class="form-group">
             <label>Uusi tagi</label>
-            <input type="text" name="tagit" class="form-control" placeholder="Erottele tagit pilkulla">
+            <input type="text" name="tagit" id="tagi" class="form-control" placeholder="Erottele tagit pilkulla">
         </div>
 
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Tallenna muutokset</button>
+            <button type="submit" id="submit" class="btn btn-primary">Tallenna muutokset</button>
         </div>
     </form>
 </div>

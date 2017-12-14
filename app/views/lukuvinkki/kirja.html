@@ -6,23 +6,23 @@
 <div class="show">
     <form method="post" action="{{base_path}}/lukuvinkki/kirja">
         <div class="form-group">
-            <label>Otsikko</label>
-            <input type="text" id="otsikko" name="otsikko" class="form-control" value="{{attributes.otsikko}}">
+            <label>Otsikko *</label>
+            <input type="text" name="otsikko" class="form-control" value="{{attributes.otsikko}}">
         </div>
 
         <div class="form-group">
-            <label>Tekijä</label>
-            <input type="text" id="tekija" name="tekija" class="form-control" value="{{attributes.tekija}}">
+            <label>Tekijä *</label>
+            <input type="text" name="tekija" class="form-control" value="{{attributes.tekija}}">
         </div>
 
         <div class="form-group">
-            <label>ISBN</label>
-            <input type="text" id="isbn" name="isbn" class="form-control" value="{{attributes.isbn}}">
+            <label>ISBN *</label>
+            <input type="text" name="isbn" class="form-control" value="{{attributes.isbn}}">
         </div>
 
         <div class="form-group">
-            <label>Julkaistu</label>
-            <input type="text" id="julkaistu" name="julkaistu" class="form-control" value="{{attributes.julkaistu}}"
+            <label>Julkaistu *</label>
+            <input type="text" name="julkaistu" class="form-control" value="{{attributes.julkaistu}}"
                    placeholder="vvvv">
         </div>
 
@@ -46,7 +46,7 @@
         </div>
 
         <div class="form-group">
-            <button id="submit" type="submit" class="btn btn-primary">Lisää</button>
+            <button id="submit" id="submit" type="submit" class="btn btn-primary">Lisää</button>
         </div>
     </form>
 </div>

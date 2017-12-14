@@ -1,13 +1,12 @@
-# Ohtu Projekti Ketterät Gepardit
-
-Tervetuloa Ketterien Gepardien Ohjelmistotuotantoprojektin github-sivuille!
+# Ohjelmistotuotanto (mini)projekti Ketterät Gepardit
 
 [![Build Status](https://travis-ci.org/Zamizmi/ohtu_projekti.svg?branch=master)](https://travis-ci.org/Zamizmi/ohtu_projekti)
-[![codecov](https://codecov.io/gh/Zamizmi/ohtu_projekti/branch/master/graph/badge.svg)](https://codecov.io/gh/Zamizmi/ohtu_projekti)
 
 * [Linkki sovellukseen](http://laatopi.users.cs.helsinki.fi/tsoha/)
 
 * [Linkki backlogiin](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit?usp=sharing)
+
+* [Linkki raporttiin](https://docs.google.com/document/d/e/2PACX-1vQ9NyRA4aJ86snmzskFuhfpZA4LVhkEsjuEtbhuLRyj7u17q5Olfmue-j4mkmv6o8uHrVgejsuttAAk/pub)
 
 
 ### Sprintin Backlogit
@@ -15,6 +14,7 @@ Tervetuloa Ketterien Gepardien Ohjelmistotuotantoprojektin github-sivuille!
 * [1. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=0)
 * [2. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=355548794)
 * [3. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=1011731108)
+* [4. Sprintti](https://docs.google.com/spreadsheets/d/10OBfmNmPVPwvg_Tim1979bz0jjIAt4BuUVJWD45U0sQ/edit#gid=1342753384)
 
 ### Gepardien Definition of Done
 Story on toteutettu DoDn mukaisesti, kun...

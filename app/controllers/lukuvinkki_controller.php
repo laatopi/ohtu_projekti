@@ -29,9 +29,17 @@ class LukuvinkkiController extends BaseController {
 
     public static function edit($id) {
         $lukuvinkki = Lukuvinkki::find($id);
-        $tags = Tag::all();
-
-        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags));
+        $apu = Tag::all();
+        $tagit = LukuvinkkiTag::findTags($id);
+        $tags = array();
+        
+        foreach ($apu as $t) {
+            if (!LukuvinkkiTag::findTag($id, $t->id)) {
+                array_push($tags, $t);
+            }
+        }
+        
+        View::make('lukuvinkki/edit.html', array('attributes' => $lukuvinkki, 'tags' => $tags, 'tagit' => $tagit));
     }
 
     public static function storeKirja() {
@@ -189,12 +197,12 @@ class LukuvinkkiController extends BaseController {
         $params = $_POST;
         $tags = Tag::all();
         $vinkki = Lukuvinkki::find($id);
-        Kint::dump($vinkki);
         $tyyppi = $vinkki->tyyppi;
         $attributes = array();
 
         if ($tyyppi == 'kirja') {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => $params['isbn'],
@@ -206,6 +214,7 @@ class LukuvinkkiController extends BaseController {
             );
         } else if ($tyyppi == 'video') {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => null,
@@ -217,6 +226,7 @@ class LukuvinkkiController extends BaseController {
             );
         } else {
             $attributes = array(
+                'id' => $id,
                 'otsikko' => $params['otsikko'],
                 'tekija' => $params['tekija'],
                 'isbn' => null,
@@ -235,17 +245,17 @@ class LukuvinkkiController extends BaseController {
         $tagit = array();
 
         if (isset($params['tags'])) {
-			$tags = $params['tags'];
-		}
+            $tags = $params['tags'];
+        }
         if (isset($params['tagit'])) {
-			$tagit = $params['tagit'];
-		}
-
+            $tagit = $params['tagit'];
+        }
+        
         if (count($errors) == 0) {
             $lukuvinkki->update($id);
             LukuvinkkiTag::destroy($id);
 
-            try {                
+            try {              
                 foreach ($tags as $tag) {
                     $tag = new LukuvinkkiTag(array('lukuvinkki_id' => $id, 'tag_id' => $tag));
                     $tag->save();
@@ -267,7 +277,17 @@ class LukuvinkkiController extends BaseController {
 
             Redirect::to('/lukuvinkki/' . $id, array('message' => 'Lukuvinkkiä on muokattu onnistuneesti!'));
         } else {
-            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags));
+            $apu = Tag::all();
+            $tagit = LukuvinkkiTag::findTags($id);
+            $tags = array();
+
+            foreach ($apu as $t) {
+                if (!LukuvinkkiTag::findTag($id, $t->id)) {
+                    array_push($tags, $t);
+                }
+            }
+            
+            View::make('lukuvinkki/edit.html', array('errors' => $errors, 'attributes' => $attributes, 'tags' => $tags, 'tagit' => $tagit));
         }
     }
 
